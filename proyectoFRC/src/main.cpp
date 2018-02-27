@@ -18,6 +18,7 @@ HANDLE PuertoCOM;
 #define BACK 8
 #define INTRO 13
 #define F1 59
+#define F2 60
 #define FN '\0'
 
 const int MAX = 600;
@@ -89,18 +90,64 @@ void salto(int &i, char vector[]) {
 
 }
 
-void envio(char &car, char vector[], int &i) {
-
+void envio(char vector[], int &i) {
+	char car;
 	if (kbhit()) {
 		car = getch();
-		if (car == F1) {
+
+		switch (car) {
+
+		case F1:
 			vector[i] = '\n';
 			cout << vector[i];
 			vector[i + 1] = '\0';
 			EnviarCadena(PuertoCOM, vector, i + 1);
-			vector[0] = '\0';
 			i = 0;
+
+			break;
+		case F2:
+			seleccionarTrama(PuertoCOM);
+			break;
+		default:
+			break;
 		}
+
+	}
+
+}
+
+void recepcion(int &numCampo, TramaControl &t) {
+	char car = 0;
+	car = RecibirCaracter(PuertoCOM);
+
+	if (car != 0) {
+
+		switch (numCampo) {
+		case 1:
+			if (car == SYN) {
+				t.S = car;
+				numCampo++;
+			} else {
+				printf("%c", car);	//Recepción
+			}
+			break;
+		case 2:
+			t.D = car;
+			numCampo++;
+			break;
+		case 3:
+			t.C = car;
+			numCampo++;
+			break;
+		case 4:
+			t.NT = car;
+			numCampo = 1;
+			mostrarTramaControl(t);
+			break;
+		default:
+			break;
+		}
+
 	}
 
 }
@@ -110,20 +157,20 @@ int main() {
 	char vector[MAX + 2];
 	int i = 0;
 	elegirPuerto();
+	int campoTrama = 1;
+	TramaControl t;
+
 // Lectura y escritura simultánea de caracteres:
 
 	while (car != ESC) {
-		car = RecibirCaracter(PuertoCOM);
 
-		if (car)
-			printf("%c", car);       //Recepción
+		recepcion(campoTrama, t);
 
 		if (kbhit()) {
 
 			car = getch();
-			vector[i] = car;
 
-			switch (vector[i]) {
+			switch (car) {
 			case BACK: //Retroceso.
 				retroceso(i);
 				break;
@@ -131,16 +178,17 @@ int main() {
 				salto(i, vector);
 				break;
 			case FN: //Envio.
-				envio(car, vector, i);
+				envio(vector, i);
 				break;
 			case ESC:
 				break;
 			default: //salida por pantalla.
 				if (i < 600) {
-					printf("%c", vector[i]);
+					vector[i] = car;
+					printf("%c", car);
 					i++;
 				}
-
+				break;
 			}
 
 		}
