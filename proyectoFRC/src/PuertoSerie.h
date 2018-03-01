@@ -1,21 +1,19 @@
 /*
- * PuertoSerie.h
- *
- *  Created on: 9/2/2015
- *      Author: stdi
+ *  Creado el: 28/2/2018
+ *      Curso: 2º
+ *      Autor: David Trujillo Torres
+ *		Autor: Alberto Diaz Martin
  */
 //FUNDAMENTOS DE REDES Y COMUNICACIONES - CURSO 2016/17
 //LIBRERÍA QUE CONTROLA EL PUERTO SERIE
-//AUTORES: Alberto Diaz Martin y David Trujillo Torres  CURSO: 2º
-
 #ifndef __PUERTOSERIE_H_
 #define __PUERTOSERIE_H_
 #include <windows.h>
 using namespace std;
 
-
 //Manejar el puerto
-HANDLE AbrirPuerto(LPCSTR NombrePuerto, DWORD Velocidad, BYTE NumBitsXByte, BYTE Paridad, BYTE BitsParada);
+HANDLE AbrirPuerto(LPCSTR NombrePuerto, DWORD Velocidad, BYTE NumBitsXByte,
+		BYTE Paridad, BYTE BitsParada);
 void CerrarPuerto(HANDLE &PuertoCOM);
 
 //Enviar y recibir
@@ -34,7 +32,8 @@ BOOL GetRI(HANDLE &PuertoCOM);
 
 //Buffers
 void ComprobarTamanoBuffers(HANDLE &PuertoCOM);
-int CambiarTamanoBuffers(HANDLE &PuertoCOM, int TamBufferEntrada, int TamBufferSalida);
+int CambiarTamanoBuffers(HANDLE &PuertoCOM, int TamBufferEntrada,
+		int TamBufferSalida);
 int VaciarBufferEntrada(HANDLE &PuertoCOM);
 int VaciarBufferSalida(HANDLE &PuertoCOM);
 int VaciarBuffers(HANDLE &PuertoCOM);

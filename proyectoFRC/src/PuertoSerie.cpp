@@ -1,13 +1,12 @@
 /*
- * PuertoSerie.cpp
- *
- *  Created on: 9/2/2015
- *      Author: stdi
+ *  Creado el: 28/2/2018
+ *      Curso: 2�
+ *      Autor: David Trujillo Torres
+ *		Autor: Alberto Diaz Martin
  */
 
 //FUNDAMENTOS DE REDES Y COMUNICACIONES - CURSO 2016/17
 //LIBRERÃ�A QUE CONTROLA EL PUERTO SERIE
-//AUTORES: Alberto Diaz Martin y David Trujillo Torres  CURSO: 2º
 #include "PuertoSerie.h"
 #include <stdio.h>
 #include <iostream>
@@ -41,7 +40,7 @@ HANDLE AbrirPuerto(LPCSTR NombrePuerto, DWORD Velocidad, BYTE NumBitsXByte,
 	// Modifica los parÃ¡metros de configuraciÃ³n en la estructura "PuertoDCB":
 	PuertoDCB.BaudRate = Velocidad;              // Velocidad
 	PuertoDCB.fBinary = TRUE; // Transferencia en modo binario (no se comprueba EOF)
-	PuertoDCB.fParity = TRUE;               // ComprobaciÃ³n de paridad activada
+	PuertoDCB.fParity = TRUE;             // ComprobaciÃ³n de paridad activada
 	PuertoDCB.fOutxCtsFlow = FALSE;         // Control de flujo CTS desactivado
 	PuertoDCB.fOutxDsrFlow = FALSE;         // Control de flujo DSR desactivado
 	PuertoDCB.fDtrControl = DTR_CONTROL_ENABLE; // Control de flujo DTR activado
@@ -91,7 +90,7 @@ void CerrarPuerto(HANDLE &PuertoCOM) {
 //Devuelve un booleano con el resultado de la operaciÃ³n de envÃ­o.
 BOOL EnviarCaracter(HANDLE &PuertoCOM, char CarAEnviar) {
 	DWORD NumCarAEnviar = 1; // NÃºmero de caracteres que se van a enviar a travÃ©s del puerto serie
-	DWORD NumCarEnviados = 0;   // NÃºmero de caracteres correctamente enviados
+	DWORD NumCarEnviados = 0;  // NÃºmero de caracteres correctamente enviados
 	if (WriteFile(PuertoCOM, (LPCVOID) &CarAEnviar, NumCarAEnviar,
 			&NumCarEnviados, NULL) == 0)
 		return FALSE;
@@ -118,7 +117,7 @@ char RecibirCaracter(HANDLE &PuertoCOM)
 {
 	char CaracterRecibido = 0;  // Caracter recibido del puerto serie
 	int NumCarARecibir = 1; // NÃºmero de caracteres que se espera recibir a travÃ©s del puerto serie
-	DWORD NumCarRecibidos = 0;  // NÃºmero de caracteres correctamente recibidos
+	DWORD NumCarRecibidos = 0; // NÃºmero de caracteres correctamente recibidos
 	if (ReadFile(PuertoCOM, &CaracterRecibido, NumCarARecibir, &NumCarRecibidos,
 			0) > 0) {
 		if (NumCarRecibidos == NumCarARecibir)
@@ -263,4 +262,3 @@ int VaciarBuffers(HANDLE &PuertoCOM) {
 	}
 	return (0);
 }
-

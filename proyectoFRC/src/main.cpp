@@ -1,9 +1,9 @@
-//============================================================================
-// ----------- PRÁCTICAS DE FUNDAMENTOS DE REDES DE COMUNICACIONES -----------
-// ---------------------------- CURSO 2017/18 --------------------------------
-// ----------------------------- SESION1.CPP ---------------------------------
-//============================================================================
-//AUTORES: Alberto Diaz Martin y David Trujillo Torres  CURSO: 2º
+/*
+ *  Creado el: 28/2/2018
+ *      Curso: 2º
+ *      Autor: David Trujillo Torres
+ *		Autor: Alberto Diaz Martin
+ */
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
@@ -106,7 +106,7 @@ void envio(char vector[], int &i) {
 
 			break;
 		case F2:
-			seleccionarTrama(PuertoCOM);
+			seleccionarTramaControl(PuertoCOM);
 			break;
 		default:
 			break;

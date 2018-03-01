@@ -1,9 +1,10 @@
 /*
- * TramaControl.cpp
- *
- *  Created on: 22/2/2018
- *      Author: Truji
+ *  Creado el: 28/2/2018
+ *      Curso: 2º
+ *      Autor: David Trujillo Torres
+ *		Autor: Alberto Diaz Martin
  */
+
 #include "TramaControl.h"
 
 void mostrarTramaControl(TramaControl t) {
@@ -31,7 +32,7 @@ void mostrarTramaControl(TramaControl t) {
 
 }
 
-void seleccionarTrama(HANDLE PuertoCOM) {
+void seleccionarTramaControl(HANDLE PuertoCOM) {
 	printf("\nTrama de control a enviar:\n");
 	printf("o 1: Trama ENQ.\n");
 	printf("o 2: Trama EOT.\n");
@@ -45,19 +46,19 @@ void seleccionarTrama(HANDLE PuertoCOM) {
 		cin >> opcion;
 		switch (opcion) {
 		case 1:
-			enviarTrama(PuertoCOM, ENQ);
+			enviarTramaControl(PuertoCOM, ENQ);
 			opcionIncorrecta = false;
 			break;
 		case 2:
-			enviarTrama(PuertoCOM, EOT);
+			enviarTramaControl(PuertoCOM, EOT);
 			opcionIncorrecta = false;
 			break;
 		case 3:
-			enviarTrama(PuertoCOM, ACK);
+			enviarTramaControl(PuertoCOM, ACK);
 			opcionIncorrecta = false;
 			break;
 		case 4:
-			enviarTrama(PuertoCOM, NACK);
+			enviarTramaControl(PuertoCOM, NACK);
 			opcionIncorrecta = false;
 			break;
 		default:
@@ -68,7 +69,7 @@ void seleccionarTrama(HANDLE PuertoCOM) {
 	}
 }
 
-void enviarTrama(HANDLE PuertoCOM, unsigned char control) {
+void enviarTramaControl(HANDLE PuertoCOM, unsigned char control) {
 
 	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
 	EnviarCaracter(PuertoCOM, 'T'); //Direccion=(En principio fijo a ’T’)

@@ -1,9 +1,12 @@
 /*
- * TramaControl.h
- *
- *  Created on: 22/2/2018
- *      Author: Truji
+ *  Creado el: 28/2/2018
+ *      Curso: 2º
+ *      Autor: David Trujillo Torres
+ *		Autor: Alberto Diaz Martin
  */
+
+//Libreria de tramas de control
+
 
 #ifndef TRAMACONTROL_H_
 #define TRAMACONTROL_H_
@@ -26,8 +29,7 @@ struct TramaControl {
 };
 
 void mostrarTramaControl(TramaControl t);
-void seleccionarTrama(HANDLE PuertoCOM);
-void enviarTrama(HANDLE PuertoCOM,unsigned char control);
-
+void seleccionarTramaControl	(HANDLE PuertoCOM);
+void enviarTramaControl(HANDLE PuertoCOM, unsigned char control);
 
 #endif /* TRAMACONTROL_H_ */
