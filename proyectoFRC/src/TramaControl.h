@@ -29,7 +29,7 @@ struct TramaControl {
 };
 
 void mostrarTramaControl(TramaControl t);
-void seleccionarTramaControl	(HANDLE PuertoCOM);
+void seleccionarTramaControl(HANDLE PuertoCOM);
 void enviarTramaControl(HANDLE PuertoCOM, unsigned char control);
 
 #endif /* TRAMACONTROL_H_ */

@@ -10,6 +10,7 @@
 #include <iostream>
 #include "PuertoSerie.h"
 #include "TramaControl.h"
+#include "TramaDatos.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ HANDLE PuertoCOM;
 #define INTRO 13
 #define F1 59
 #define F2 60
+#define F3 61
 #define FN '\0'
 
 const int MAX = 600;
@@ -92,57 +94,23 @@ void salto(int &i, char vector[]) {
 
 void envio(char vector[], int &i) {
 	char car;
+
 	if (kbhit()) {
 		car = getch();
 
 		switch (car) {
 
 		case F1:
-			vector[i] = '\n';
-			cout << vector[i];
-			vector[i + 1] = '\0';
-			EnviarCadena(PuertoCOM, vector, i + 1);
+
+			enviarTramaDatos(PuertoCOM, vector, i);
 			i = 0;
 
 			break;
 		case F2:
 			seleccionarTramaControl(PuertoCOM);
 			break;
-		default:
-			break;
-		}
-
-	}
-
-}
-
-void recepcion(int &numCampo, TramaControl &t) {
-	char car = 0;
-	car = RecibirCaracter(PuertoCOM);
-
-	if (car != 0) {
-
-		switch (numCampo) {
-		case 1:
-			if (car == SYN) {
-				t.S = car;
-				numCampo++;
-			} else {
-				printf("%c", car);	//Recepción
-			}
-			break;
-		case 2:
-			t.D = car;
-			numCampo++;
-			break;
-		case 3:
-			t.C = car;
-			numCampo++;
-			break;
-		case 4:
-			t.NT = car;
-			numCampo = 1;
-			mostrarTramaControl(t);
+		case F3:
+			enviarFichero(PuertoCOM);
 			break;
 		default:
 			break;
@@ -155,16 +123,18 @@ void recepcion(int &numCampo, TramaControl &t) {
 int main() {
 	char car = 0;
 	char vector[MAX + 2];
-	int i = 0;
+	int i = 0, numDato = 0, campoTrama = 1;
 	elegirPuerto();
-	int campoTrama = 1;
 	TramaControl t;
-
+	TramaDatos td;
+	bool esTramaControl = false, esFichero = false;
+	ofstream flujoFichero;
 // Lectura y escritura simultánea de caracteres:
 
 	while (car != ESC) {
 
-		recepcion(campoTrama, t);
+		recepcion(PuertoCOM, campoTrama, numDato, t, td, esTramaControl,
+				esFichero, flujoFichero);
 
 		if (kbhit()) {
 
@@ -179,6 +149,7 @@ int main() {
 				break;
 			case FN: //Envio.
 				envio(vector, i);
+				printf("%c", '\n');
 				break;
 			case ESC:
 				break;

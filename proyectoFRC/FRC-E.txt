@@ -1,0 +1,3098 @@
+atos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
+de la práctica.
+- Documentación interna adecuada y suficiente como para seguir
+adecuadamente el código. La fecha tope para subir esta entrega 4 se comentará
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 3/3 -
+en clase. Cualquier práctica entregada con posterioridad a la fecha y hora
+indicada se considerará no válida a todos los efectos.Prácticas de Fundamentos de Redes y Comunicaciones
+- 1/3 -
+ENTREGA 4
+ENVÍO Y RECEPCIÓN DE FICHEROS CON TRAMAS
+Prácticas de Fundamentos de Redes y Comunicaciones – Curso 2017/2018
+María del Mar Ávila Vegas (mmavila@unex.es)
+12 de marzo de 2018
+Índice
+1. Construcción de tramas de datos.
+2. Envío y recepción de ficheros con tramas.
+3. Control de fin de aplicación (ESC).
+4. Entrega de la sesión práctica.
+1. Construcción de tramas de datos.
+Ø Como ya se explicó anteriormente, las tramas de datos están compuestas por los
+siguientes campos:
+struct TramaDatos
+{
+unsigned char S; à Sincronismo = SYN =22;
+unsigned char D; à Direccion= (En principio fijo a ’T’);
+unsigned char C; à Control = STX = 02;
+unsigned char N; àNumTrama = (En principio fijo a ‘0’);
+unsigned char L; àLong (Longitud del campo de datos);
+char Datos[255]; à Datos[255];
+unsigned BCE; à (Valor entre 1 y 254);
+};
+Ø En un principio la trama de datos se construirá de la manera expresada anteriormente.
+En las sesiones sucesivas se explicará como irá cambiando.
+2. Envío y recepción de ficheros.
+Ø En esta sesión se enviará el contenido de un fichero de texto llamado “FRC-E.txt”. El
+tamaño del fichero será como mínimo de 150 KB.
+Ø El fichero se creará con el bloc de notas y se almacenará en el directorio de trabajo.
+22 ‘T’ 02 ‘0’ Long Datos BCE
+Prácticas de Fundamentos de Redes y Comunicaciones
+- 2/3 -
+Ø Mediante la tecla F3, se enviará el contenido del fichero al receptor. En el directorio
+de trabajo del receptor, se creará un fichero con el nombre (FRC-R.txt) y se
+almacenará el contenido que se vaya recibiendo en él. El fichero debe llegar íntegro.
+Ø No se debe mostrar el contenido del fichero por pantalla, ni en el emisor, ni en el
+receptor.
+Ø Cuando el emisor comience a enviar el fichero, mostrará un mensaje informativo de
+“Enviando fichero” y cuando termine, mostrará un mensaje indicando que el fichero
+ya se ha enviado “Fichero enviado”.
+Ø En el receptor se mostrará un mensaje informativo indicando cuando comienza a
+recibirse un fichero, “Recibiendo fichero” y otro para indicar cuando termina la
+recepción de dicho fichero ,“Fichero recibido”.
+Ø Para realizar el envío, el fichero se irá troceando en bloques de 254 caracteres. Cada
+bloque se almacenará en el campo Datos de la trama de datos. Para enviar el fichero
+se harán tantos envíos como en bloques de 254 caracteres se pueda dividir el fichero.
+Para cada envío se debe enviar la trama de datos completa. (El campo long es el
+carácter que resulta de expresar la longitud total del campo de datos).
+Ø MUY IMPORTANTE: Como siempre se ha dicho, nunca se debe excluir el envío de la
+recepción, es decir, se puede y se debe “enviar y recibir a la vez”. Las posibilidades
+que tendríamos serían las siguientes:
+o Enviar mensaje datos / recibir mensaje datos.
+o Enviar mensaje datos / recibir fichero.
+o Enviar fichero / recibir mensaje datos.
+o Enviar fichero / recibir fichero. (OPCIONAL).
+3. Control de fin de aplicación (ESC).
+En todo momento, el usuario puede poner fin a la aplicación mediante la
+pulsación de la tecla ESCAPE. En el caso de estar realizando alguna acción mientras se
+pulsa esta tecla, se cancelará dicha acción.
+4. Entrega de la sesión práctica.
+A través de la herramienta AVUEx, según las instrucciones dadas en clase a este
+respecto, debe entregarse un archivo comprimido en formato ZIP o RAR que contenga
+lo siguiente:
+- Un archivo AUTORES.TXT, que incluya nombre y apellidos, por este orden,
+de los autores de la práctica.
+- Todos los archivos fuente de la práctica (*.CPP y *.H). No olvidéis incluir al
+menos el nombre de los autores y el curso como comentarios en cada uno de
+los ficheros fuente entregados.
+- El ejecutable (*.EXE) (compilado a partir de los ficheros fuentes entregados)
