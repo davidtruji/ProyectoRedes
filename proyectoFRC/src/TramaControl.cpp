@@ -13,16 +13,16 @@ void mostrarTramaControl(TramaControl t) {
 	switch (control) {
 
 	case ENQ:
-		printf("Se ha recibido una trama ENQ\n");
+		cout << "[RECIBIDA] TRAMA ENQ - " << t.NT << endl;
 		break;
 	case EOT:
-		printf("Se ha recibido una trama EOT\n");
+		cout << "[RECIBIDA] TRAMA EOT - " << t.NT << endl;
 		break;
 	case ACK:
-		printf("Se ha recibido una trama ACK\n");
+		cout << "[RECIBIDA] TRAMA ACK - " << t.NT << endl;
 		break;
 	case NACK:
-		printf("Se ha recibido una trama NACK\n");
+		cout << "[RECIBIDA] TRAMA NACK - " << t.NT << endl;
 		break;
 	default:
 		printf("Trama de control desconocida\n");

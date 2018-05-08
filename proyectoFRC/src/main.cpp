@@ -11,6 +11,8 @@
 #include "PuertoSerie.h"
 #include "TramaControl.h"
 #include "TramaDatos.h"
+#include "libFRC.h"
+//#include "ProtocoloMaestroEsclavo.h"
 
 using namespace std;
 
@@ -21,6 +23,7 @@ HANDLE PuertoCOM;
 #define F1 59
 #define F2 60
 #define F3 61
+#define F4 62
 #define FN '\0'
 
 const int MAX = 600;
@@ -112,6 +115,11 @@ void envio(char vector[], int &i) {
 		case F3:
 			enviarFichero(PuertoCOM);
 			break;
+		case F4:
+
+			seleccionMaestroEsclavo(PuertoCOM);
+			break;
+
 		default:
 			break;
 		}
@@ -128,6 +136,7 @@ int main() {
 	TramaControl t;
 	TramaDatos td;
 	bool esTramaControl = false, esFichero = false;
+
 	ofstream flujoFichero;
 // Lectura y escritura simultánea de caracteres:
 
