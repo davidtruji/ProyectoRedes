@@ -13,16 +13,16 @@ void mostrarTramaControl(TramaControl t) {
 	switch (control) {
 
 	case ENQ:
-		cout << "[RECIBIDA] TRAMA ENQ - " << t.NT << endl;
+		printf("\n[RECIBIDA] TRAMA ENQ - %c\n", t.NT);
 		break;
 	case EOT:
-		cout << "[RECIBIDA] TRAMA EOT - " << t.NT << endl;
+		printf("\n[RECIBIDA] TRAMA EOT - %c\n", t.NT);
 		break;
 	case ACK:
-		cout << "[RECIBIDA] TRAMA ACK - " << t.NT << endl;
+		printf("\n[RECIBIDA] TRAMA ACK - %c\n", t.NT);
 		break;
 	case NACK:
-		cout << "[RECIBIDA] TRAMA NACK - " << t.NT << endl;
+		printf("\n[RECIBIDA] TRAMA NACK - %c\n", t.NT);
 		break;
 	default:
 		printf("Trama de control desconocida\n");
@@ -33,37 +33,42 @@ void mostrarTramaControl(TramaControl t) {
 }
 
 void seleccionarTramaControl(HANDLE PuertoCOM) {
-	printf("\nTrama de control a enviar:\n");
-	printf("o 1: Trama ENQ.\n");
-	printf("o 2: Trama EOT.\n");
-	printf("o 3: Trama ACK.\n");
-	printf("o 4: Trama NACK.\n");
 
-	int opcion;
+	char tecla;
+	bool opcion = false;
+	while (!opcion) {
+		printf("\nTrama de control a enviar:\n");
+		printf("o 1: Trama ENQ.\n");
+		printf("o 2: Trama EOT.\n");
+		printf("o 3: Trama ACK.\n");
+		printf("o 4: Trama NACK.\n");
+		while (!kbhit()) {
+		}
 
-	bool opcionIncorrecta = true;
-	while (opcionIncorrecta) {
-		cin >> opcion;
-		switch (opcion) {
-		case 1:
+		opcion = true;
+		tecla = getch();
+
+		switch (tecla) {
+		case '1':
 			enviarTramaControl(PuertoCOM, ENQ);
-			opcionIncorrecta = false;
+			//opcionIncorrecta = false;
 			break;
-		case 2:
+		case '2':
 			enviarTramaControl(PuertoCOM, EOT);
-			opcionIncorrecta = false;
+			//opcionIncorrecta = false;
 			break;
-		case 3:
+		case '3':
 			enviarTramaControl(PuertoCOM, ACK);
-			opcionIncorrecta = false;
+			//opcionIncorrecta = false;
 			break;
-		case 4:
+		case '4':
 			enviarTramaControl(PuertoCOM, NACK);
-			opcionIncorrecta = false;
+			//opcionIncorrecta = false;
 			break;
 		default:
+			opcion = false;
 			cout << "Opcion introducida incorrecta..." << endl;
-
+			break;
 		}
 
 	}

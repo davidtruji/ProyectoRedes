@@ -13,6 +13,8 @@
 
 #include <iostream>
 #include "PuertoSerie.h"
+#include <conio.h>
+
 using namespace std;
 
 #define SYN 22

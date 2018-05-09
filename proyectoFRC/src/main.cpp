@@ -29,7 +29,6 @@ HANDLE PuertoCOM;
 const int MAX = 600;
 
 void elegirPuerto() {
-	int x;
 
 	// Parámetros necesarios al llamar a AbrirPuerto:
 	// - Nombre del puerto a abrir ("COM1", "COM2", "COM3", ...).
@@ -37,41 +36,48 @@ void elegirPuerto() {
 	// - Número de bits en cada byte enviado o recibido (4, 5, 6, 7, 8).
 	// - Paridad (0=sin paridad, 1=impar, 2=par, 3=marca, 4=espacio).
 	// - Bits de stop (0=1 bit, 1=1.5 bits, 2=2 bits)
-	bool flag = true;
-	while (flag) {
-		cout << "Elija un puerto(1, 2, 3, 4): \n";
-		cin >> x;
-		switch (x) {
-		case 1:
+	bool opcion = false;
+	char tecla;
+
+	while (!opcion) {
+		printf("\nSELECCIONE UN PUERTO EN SERIE: 1, 2, 3, o 4\n");
+
+		while (!kbhit()) {
+		}
+
+		opcion = true;
+		tecla = getch();
+
+		switch (tecla) {
+		case '1':
 			PuertoCOM = AbrirPuerto("COM1", 9600, 8, 0, 0);
-			flag = false;
-			cout << "Puerto com1 abierto... ";
+			printf("PUERTO COM1 ABIERTO...\n");
 			break;
-		case 2:
+		case '2':
 			PuertoCOM = AbrirPuerto("COM2", 9600, 8, 0, 0);
-			flag = false;
-			cout << "Puerto com2 abierto... ";
+			printf("PUERTO COM2 ABIERTO...\n");
 			break;
-		case 3:
+		case '3':
 			PuertoCOM = AbrirPuerto("COM3", 9600, 8, 0, 0);
-			flag = false;
-			cout << "Puerto com3 abierto... ";
+			printf("PUERTO COM3 ABIERTO...\n");
 			break;
-		case 4:
+		case '4':
 			PuertoCOM = AbrirPuerto("COM4", 9600, 8, 0, 0);
-			flag = false;
-			cout << "Puerto com4 abierto... ";
+			printf("PUERTO COM4 ABIERTO...\n");
+			break;
+		default:
+			opcion = false;
 			break;
 		}
 
 	}
 
 	if (PuertoCOM == NULL) {
-		printf("Error al abrir el puerto\n");
+		printf("ERROR AL ABRIR EL PUERTO\n");
 		getch();
 
 	} else
-		printf("Puerto abierto correctamente\n");
+		printf("PUERTO ABIERTO CORRECTAMENTE\n");
 
 }
 

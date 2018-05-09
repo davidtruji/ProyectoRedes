@@ -11,7 +11,7 @@
 bool maestro = false, esclavo = false;
 
 void enviarFichero(HANDLE PuertoCOM) {
-	printf("\nEnviando fichero\n");
+	printf("\n[ENVIANDO FICHERO]\n");
 	int c;
 	char datos[255];
 	ifstream flujoFicheroLectura;
@@ -61,9 +61,9 @@ void enviarFichero(HANDLE PuertoCOM) {
 		EnviarCaracter(PuertoCOM, '#');
 
 		flujoFicheroLectura.close();
-		printf("\nFichero enviado\n");
+		printf("\n[ENVIADO] FICHERO\n");
 	} else
-		printf("\nError al intentar abrir el fichero...\n");
+		printf("\n[ERROR] IMPOSIBLE ABRIR EL FICHERO...\n");
 
 }
 
@@ -85,13 +85,13 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 				esFichero = true;
 				flujoFichero.open("FRC-R.txt");
 				if (!maestro && !esclavo)
-					printf("\nRecibiendo fichero\n");
+					printf("\n[RECIBIENDO FICHERO]\n");
 
 			} else if (car == '#') {
 				esFichero = false;
 				flujoFichero.close();
 				if (!maestro && !esclavo)
-					printf("\nFichero recibido\n");
+					printf("\n[RECIBIDO] FICHERO\n");
 			}
 
 			break;
@@ -134,7 +134,7 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 
 						if (esclavo) {
 							esclavo = false;
-							printf("\nLIBERADO\n");
+							//printf("\nLIBERADO\n");
 						} else {
 							responderSolicitudCierre(PuertoCOM, t.NT);
 						}
@@ -207,7 +207,7 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 						}
 
 					} else {
-						printf("\nError al recibir trama BCE incorrecto...\n");
+						printf("\n[ERROR] BCE INCORRECTO...\n");
 
 						if (esclavo) {
 							enviarRechazo(PuertoCOM, 'R', td.N);
@@ -218,7 +218,7 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 
 					}
 				} else
-					printf("\nError al intentar escribir en fichero...\n");
+					printf("\n[ERROR] IMPOSIBLE ABRIR EL FICHERO...\n");
 			} else
 				mostrarTramaDatos(td);
 
@@ -232,60 +232,70 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 }
 
 void seleccionMaestroEsclavo(HANDLE PuertoCOM) {
-	bool flag = true;
-	int x;
-	while (flag) {
+	bool flag = false;
+	char tecla;
+
+	while (!flag) {
 		printf("\n===== PROTOCOLO Maestro-Esclavo =====\n");
 		printf("(1) - Maestro\n");
 		printf("(2) - Esclavo\n");
+		while (!kbhit()) {
+		}
 
-		cin >> x;
-		switch (x) {
-		case 1:
+		flag = true;
+		tecla = getch();
+
+		switch (tecla) {
+		case '1':
 			printf("MAESTRO\n");
-			flag = false;
 			maestro = true;
 			esclavo = false;
 			seleccionMaestro(PuertoCOM);
 			break;
-		case 2:
+		case '2':
 			printf("ESCLAVO\n");
-			flag = false;
 			esclavo = true;
 			maestro = false;
 			break;
 		default:
+			flag = false;
 			printf("OPCION NO VALIDA\n");
+			break;
 		}
 
 	}
 }
 
 void seleccionMaestro(HANDLE PuertoCOM) {
-	bool flag = true;
-	int x;
-	while (flag) {
+	bool flag = false;
+	char tecla;
+	while (!flag) {
 		printf("\n===== MAESTRO: Elija una opcion; =====\n");
 		printf("(1) - Seleccion\n");
 		printf("(2) - Sondeo\n");
 
-		cin >> x;
-		switch (x) {
-		case 1:
+		while (!kbhit()) {
+		}
+
+		flag = true;
+		tecla = getch();
+
+		switch (tecla) {
+		case '1':
 			printf("SELECCION\n");
 			seleccion(PuertoCOM); //Establecimiento
 			enviarFicheroME(PuertoCOM, 'R'); //Tranferencia
 			liberacionSeleccion(PuertoCOM); //Liberacion
 			maestro = false;
-			flag = false;
 			break;
-		case 2:
+		case '2':
 			printf("SONDEO\n");
 			sondeo(PuertoCOM); //Establecimiento
-			flag = false;
 			break;
 		default:
+			flag = false;
 			printf("OPCION NO VALIDA\n");
+			break;
 		}
 
 	}
@@ -345,7 +355,7 @@ bool recibirConfirmacionSeleccion(HANDLE PuertoCOM, int &campo,
 		case 4:
 			if (car == num) {
 				ack = true;
-				printf("[RECIBIDA] TRAMA ACK - %c", num);
+				printf("\n[RECIBIDA] TRAMA ACK - %c\n", num);
 			}
 			campo = 1;
 
@@ -358,7 +368,6 @@ bool recibirConfirmacionSeleccion(HANDLE PuertoCOM, int &campo,
 
 void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 
-	//printf("\nEnviando fichero\n");
 	int c;
 	char datos[255], tecla;
 	ifstream flujoFicheroLectura;
@@ -476,7 +485,7 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 				if (tecla == FN) { //Comprobamos si es una tecla de Función
 					tecla = getch();
 					if (tecla == F5) {
-						printf("*** ERROR EN TRAMA ***\n");
+						printf("\n*** INTRODUCIDO ERROR EN TRAMA ***\n");
 						error = true;
 					}
 				}
@@ -488,9 +497,8 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 		EnviarCaracter(PuertoCOM, '#');
 
 		flujoFicheroLectura.close();
-		//printf("\nFichero enviado\n");
 	} else
-		printf("\nError al intentar abrir el fichero...\n");
+		printf("\n[ERROR] IMPOSIBLE ABRIR EL FICHERO...\n");
 
 }
 
@@ -499,7 +507,7 @@ void enviarEOT(HANDLE PuertoCOM, unsigned char direccion, unsigned char num) {
 	EnviarCaracter(PuertoCOM, direccion); //Direccion=(En principio fijo a ’T’ o 'R')
 	EnviarCaracter(PuertoCOM, EOT); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
 	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
-	printf("[ENVIADA] TRAMA EOT - %c", num);
+	printf("\n[ENVIADA] TRAMA EOT - %c\n", num);
 
 }
 
@@ -540,7 +548,7 @@ bool recibirConfirmacionSondeo(HANDLE PuertoCOM, int& campo,
 		case 4:
 			if (car == num) {
 				ack = true;
-				printf("[RECIBIDA] TRAMA ACK - %c\n", num);
+				printf("\n[RECIBIDA] TRAMA ACK - %c\n", num);
 			}
 			campo = 1;
 
@@ -558,7 +566,7 @@ void liberacionSeleccion(HANDLE PuertoCOM) {
 	while (!liberacion)
 		liberacion = recibirConfirmacionSeleccion(PuertoCOM, campo, '0');
 
-	printf("\n Se ha confirmado liberacion\n");
+	//printf("\n Se ha confirmado liberacion\n");
 }
 
 void solicitarCierreSondeo(HANDLE PuertoCOM) {
@@ -629,9 +637,9 @@ bool recibirCierreSondeo(HANDLE PuertoCOM, int& campo, unsigned char num,
 			if (car == num) {
 
 				if (t.C == ACK) {
-					printf("[RECIBIDA] TRAMA ACK - %c\n", num);
+					printf("\n[RECIBIDA] TRAMA ACK - %c\n", num);
 				} else {
-					printf("[RECIBIDA] TRAMA NACK - %c\n", num);
+					printf("\n[RECIBIDA] TRAMA NACK - %c\n", num);
 
 				}
 
@@ -648,35 +656,33 @@ bool recibirCierreSondeo(HANDLE PuertoCOM, int& campo, unsigned char num,
 
 void responderSolicitudCierre(HANDLE PuertoCOM, unsigned char num) {
 	bool opcion = false;
-	//int x;
 	char tecla;
 
 	while (!opcion) {
 		printf("\n===== CONFIRMACION DE CIERRE: Elija una opcion; =====\n");
 		printf("(1) - ACEPTAR\n");
 		printf("(2) - RECHAZAR\n");
-		if (kbhit()) {
-			opcion = true;
-			tecla = getch();
+		while (!kbhit()) {
+		}
 
-			switch (tecla) {
-			case 1:
-				printf("ACEPTADO\n");
-				enviarConfirmacion(PuertoCOM, 'T', num);
-				//opcion = false;
-				break;
-			case 2:
-				printf("RECHAZADO\n");
-				enviarRechazo(PuertoCOM, 'T', num);
-				//flag = false;
-				break;
-			default:
-				opcion = false;
-				printf("OPCION NO VALIDA\n");
-			}
+		opcion = true;
+		tecla = getch();
+
+		switch (tecla) {
+		case '1':
+			printf("ACEPTADO\n");
+			enviarConfirmacion(PuertoCOM, 'T', num);
+			break;
+		case '2':
+			printf("RECHAZADO\n");
+			enviarRechazo(PuertoCOM, 'T', num);
+			break;
+		default:
+			opcion = false;
+			printf("OPCION NO VALIDA\n");
+			break;
 		}
 	}
-
 }
 
 void reenviarTramaDatos(HANDLE PuertoCOM, TramaDatos td) {
@@ -691,9 +697,7 @@ void reenviarTramaDatos(HANDLE PuertoCOM, TramaDatos td) {
 	}
 	//td.BCE = calcularBCE(datos, c);
 	EnviarCaracter(PuertoCOM, td.BCE); //Calculo y envio del BCE
-	printf("\n[REENVIADA] TRAMA DE DATOS - ");
-	printf("%c", td.N);
-	printf("\n");
+	printf("\n[REENVIADA] TRAMA DE DATOS - %c\n", td.N);
 
 }
 
@@ -702,7 +706,7 @@ void enviarRechazo(HANDLE PuertoCOM, unsigned char dir, unsigned char num) {
 	EnviarCaracter(PuertoCOM, dir); //Direccion=(En principio fijo a ’T’)
 	EnviarCaracter(PuertoCOM, NACK); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
 	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
-	printf("[ENVIADA] TRAMA NACK - %c\n", num);
+	printf("\n[ENVIADA] TRAMA NACK - %c\n", num);
 }
 
 bool recibirConfirmacionError(HANDLE PuertoCOM, int& campo, unsigned char dir,
@@ -741,9 +745,9 @@ bool recibirConfirmacionError(HANDLE PuertoCOM, int& campo, unsigned char dir,
 			if (car == num) {
 
 				if (t.C == ACK) {
-					printf("[RECIBIDA] TRAMA ACK - %c", num);
+					printf("\n[RECIBIDA] TRAMA ACK - %c\n", num);
 				} else {
-					printf("[RECIBIDA] TRAMA NACK - %c", num);
+					printf("\n[RECIBIDA] TRAMA NACK - %c\n", num);
 
 				}
 
