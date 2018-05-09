@@ -12,7 +12,6 @@
 #include "TramaControl.h"
 #include "TramaDatos.h"
 #include "libFRC.h"
-//#include "ProtocoloMaestroEsclavo.h"
 
 using namespace std;
 
@@ -24,6 +23,7 @@ HANDLE PuertoCOM;
 #define F2 60
 #define F3 61
 #define F4 62
+#define F5 63
 #define FN '\0'
 
 const int MAX = 600;
