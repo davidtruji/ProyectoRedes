@@ -67,7 +67,7 @@ void seleccionarTramaControl(HANDLE PuertoCOM) {
 			break;
 		default:
 			opcion = false;
-			cout << "Opcion introducida incorrecta..." << endl;
+			printf("OPCION NO VALIDA\n");
 			break;
 		}
 

@@ -84,4 +84,3 @@ void mostrarTramaDatos(TramaDatos td) {
 
 }
 
-

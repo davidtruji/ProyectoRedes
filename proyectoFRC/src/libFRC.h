@@ -36,7 +36,7 @@ void solicitarCierreSondeo(HANDLE PuertoCOM);
 bool recibirCierreSondeo(HANDLE PuertoCOM, int& campo, unsigned char num,
 		TramaControl &t);
 void responderSolicitudCierre(HANDLE PuertoCOM, unsigned char num);
-void enviarRechazo(HANDLE PuertoCOM,unsigned char dir, unsigned char num);
+void enviarRechazo(HANDLE PuertoCOM, unsigned char dir, unsigned char num);
 bool recibirConfirmacionError(HANDLE PuertoCOM, int& campo, unsigned char dir,
 		unsigned char num, TramaControl &t);
 

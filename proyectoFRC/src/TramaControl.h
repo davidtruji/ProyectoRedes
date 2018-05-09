@@ -6,8 +6,6 @@
  */
 
 //Libreria de tramas de control
-
-
 #ifndef TRAMACONTROL_H_
 #define TRAMACONTROL_H_
 
