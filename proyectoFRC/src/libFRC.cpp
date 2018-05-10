@@ -308,23 +308,6 @@ void seleccion(HANDLE PuertoCOM) {
 
 }
 
-//void enviarLlamada(HANDLE PuertoCOM, unsigned char direccion) {
-//	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-//	EnviarCaracter(PuertoCOM, direccion); //Direccion=(’R’ indica seleccion )
-//	EnviarCaracter(PuertoCOM, ENQ); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-//	EnviarCaracter(PuertoCOM, '0'); //Numero de Trama = (En principio fijo a ‘0’)
-//	printf("\n[ENVIADA] TRAMA ENQ - %c\n", '0');
-//}
-
-//void enviarConfirmacion(HANDLE PuertoCOM, unsigned char direccion,
-//		unsigned char num) {
-//	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-//	EnviarCaracter(PuertoCOM, direccion); //Direccion=(En principio fijo a ’T’)
-//	EnviarCaracter(PuertoCOM, ACK); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-//	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
-//	printf("\n[ENVIADA] TRAMA ACK - %c\n", num);
-//}
-
 bool recibirConfirmacionSeleccion(HANDLE PuertoCOM, int &campo,
 		unsigned char num, TramaControl &t) {
 	char car = 0;
@@ -501,15 +484,6 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 		printf("\n[ERROR] IMPOSIBLE ABRIR EL FICHERO...\n");
 
 }
-
-//void enviarEOT(HANDLE PuertoCOM, unsigned char direccion, unsigned char num) {
-//	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-//	EnviarCaracter(PuertoCOM, direccion); //Direccion=(En principio fijo a ’T’ o 'R')
-//	EnviarCaracter(PuertoCOM, EOT); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-//	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
-//	printf("\n[ENVIADA] TRAMA EOT - %c\n", num);
-//
-//}
 
 void sondeo(HANDLE PuertoCOM) {
 	bool sondeo = false;
@@ -698,14 +672,6 @@ void reenviarTramaDatos(HANDLE PuertoCOM, TramaDatos td) {
 	printf("\n[REENVIADA] TRAMA DE DATOS - %c\n", td.N);
 
 }
-
-//void enviarRechazo(HANDLE PuertoCOM, unsigned char dir, unsigned char num) {
-//	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-//	EnviarCaracter(PuertoCOM, dir); //Direccion=(En principio fijo a ’T’)
-//	EnviarCaracter(PuertoCOM, NACK); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-//	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
-//	printf("\n[ENVIADA] TRAMA NACK - %c\n", num);
-//}
 
 bool recibirConfirmacionError(HANDLE PuertoCOM, int& campo, unsigned char dir,
 		unsigned char num, TramaControl& t) {

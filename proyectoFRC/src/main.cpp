@@ -51,33 +51,28 @@ void elegirPuerto() {
 		switch (tecla) {
 		case '1':
 			PuertoCOM = AbrirPuerto("COM1", 9600, 8, 0, 0);
-			printf("PUERTO COM1 ABIERTO...\n");
 			break;
 		case '2':
 			PuertoCOM = AbrirPuerto("COM2", 9600, 8, 0, 0);
-			printf("PUERTO COM2 ABIERTO...\n");
 			break;
 		case '3':
 			PuertoCOM = AbrirPuerto("COM3", 9600, 8, 0, 0);
-			printf("PUERTO COM3 ABIERTO...\n");
 			break;
 		case '4':
 			PuertoCOM = AbrirPuerto("COM4", 9600, 8, 0, 0);
-			printf("PUERTO COM4 ABIERTO...\n");
 			break;
 		default:
+			printf("OPCION NO VALIDA\n");
 			opcion = false;
 			break;
 		}
 
+		if (PuertoCOM != NULL) {
+			printf("PUERTO ABIERTO CORRECTAMENTE\n");
+		} else
+			opcion = false;
+
 	}
-
-	if (PuertoCOM == NULL) {
-		printf("ERROR AL ABRIR EL PUERTO\n");
-		getch();
-
-	} else
-		printf("PUERTO ABIERTO CORRECTAMENTE\n");
 
 }
 
