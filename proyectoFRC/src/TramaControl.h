@@ -28,8 +28,9 @@ struct TramaControl {
 	unsigned char NT; //Numero de Trama = (En principio fijo a ‘0’)
 };
 
-void mostrarTramaControl(TramaControl t);
+void mostrarTramaControl(TramaControl t, bool enviada);
 void seleccionarTramaControl(HANDLE PuertoCOM);
-void enviarTramaControl(HANDLE PuertoCOM, unsigned char control);
+void enviarTramaControl(HANDLE PuertoCOM, unsigned char dir,
+		unsigned char control, unsigned char num);
 
 #endif /* TRAMACONTROL_H_ */

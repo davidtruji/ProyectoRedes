@@ -23,20 +23,20 @@ void seleccionMaestroEsclavo(HANDLE PuertoCOM);
 void seleccionMaestro(HANDLE PuertoCOM);
 void seleccion(HANDLE PuertoCOM);
 void sondeo(HANDLE PuertoCOM);
-void enviarLlamada(HANDLE PuertoCOM, unsigned char direccion);
-void enviarConfirmacion(HANDLE PuertoCOM, unsigned char direccion,
-		unsigned char num);
+//void enviarLlamada(HANDLE PuertoCOM, unsigned char direccion);
+//void enviarConfirmacion(HANDLE PuertoCOM, unsigned char direccion,
+//		unsigned char num);
 bool recibirConfirmacionSeleccion(HANDLE PuertoCOM, int &campo,
-		unsigned char num);
+		unsigned char num, TramaControl &t);
 bool recibirConfirmacionSondeo(HANDLE PuertoCOM, int &campo, unsigned char num);
 void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion);
-void enviarEOT(HANDLE PuertoCOM, unsigned char direccion, unsigned char num);
+//void enviarEOT(HANDLE PuertoCOM, unsigned char direccion, unsigned char num);
 void liberacionSeleccion(HANDLE PuertoCOM);
 void solicitarCierreSondeo(HANDLE PuertoCOM);
 bool recibirCierreSondeo(HANDLE PuertoCOM, int& campo, unsigned char num,
 		TramaControl &t);
 void responderSolicitudCierre(HANDLE PuertoCOM, unsigned char num);
-void enviarRechazo(HANDLE PuertoCOM, unsigned char dir, unsigned char num);
+//void enviarRechazo(HANDLE PuertoCOM, unsigned char dir, unsigned char num);
 bool recibirConfirmacionError(HANDLE PuertoCOM, int& campo, unsigned char dir,
 		unsigned char num, TramaControl &t);
 

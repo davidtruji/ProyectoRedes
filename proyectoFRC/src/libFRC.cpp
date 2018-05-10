@@ -91,7 +91,7 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 				esFichero = false;
 				flujoFichero.close();
 				if (!maestro && !esclavo)
-					printf("\n[RECIBIDO] FICHERO\n");
+					printf("\n[RECIBIDO FICHERO]\n");
 			}
 
 			break;
@@ -119,14 +119,14 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 
 				if (esTramaControl) {
 					numCampo = 1;
-					mostrarTramaControl(t);
+					mostrarTramaControl(t, false);
 
 					if (t.D == 'R')
-						enviarConfirmacion(PuertoCOM, 'R', '0'); //Confirmacion de seleccion
+						enviarTramaControl(PuertoCOM, 'R', ACK, '0');
 					else if (t.D == 'T' && esclavo) {
-						enviarConfirmacion(PuertoCOM, 'T', '0'); //Confirmacion de sondeo
+						enviarTramaControl(PuertoCOM, 'T', ACK, '0');
+						//Confirmacion de sondeo
 						enviarFicheroME(PuertoCOM, 'T');
-
 						solicitarCierreSondeo(PuertoCOM);
 					}
 
@@ -149,7 +149,7 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 				td.N = car;
 				if (esTramaControl) {
 					numCampo = 1;
-					mostrarTramaControl(t);
+					mostrarTramaControl(t, false);
 				} else
 					numCampo++;
 
@@ -185,35 +185,29 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 						if (esclavo) {
 							if (td.N == '0') {
 								printf("\n[RECIBIDA] TRAMA DE DATOS - 0\n");
-								enviarConfirmacion(PuertoCOM, 'R', '0');
 							} else {
 								printf("\n[RECIBIDA] TRAMA DE DATOS - 1\n");
-								enviarConfirmacion(PuertoCOM, 'R', '1');
-
 							}
+							enviarTramaControl(PuertoCOM, 'R', ACK, td.N);
+
 						} else if (maestro) {
 
 							if (td.N == '0') {
 								printf("\n[RECIBIDA] TRAMA DE DATOS - 0\n");
-								//enviarConfirmacion(PuertoCOM, 'R', '0');
-								enviarConfirmacion(PuertoCOM, 'T', '0');
 							} else {
 								printf("\n[RECIBIDA] TRAMA DE DATOS - 1\n");
-								//enviarConfirmacion(PuertoCOM, 'R', '1');
-								enviarConfirmacion(PuertoCOM, 'T', '1');
-
 							}
+							enviarTramaControl(PuertoCOM, 'T', ACK, td.N);
 
 						}
 
 					} else {
 						printf("\n[ERROR] BCE INCORRECTO...\n");
-
+//TODO: Mostrar trama datos aun siendo incorrecta...
 						if (esclavo) {
-							enviarRechazo(PuertoCOM, 'R', td.N);
+							enviarTramaControl(PuertoCOM, 'R', NACK, td.N);
 						} else if (maestro) {
-							enviarRechazo(PuertoCOM, 'T', td.N);
-
+							enviarTramaControl(PuertoCOM, 'T', NACK, td.N);
 						}
 
 					}
@@ -304,33 +298,35 @@ void seleccionMaestro(HANDLE PuertoCOM) {
 void seleccion(HANDLE PuertoCOM) {
 	bool seleccion = false;
 	int campo = 1;
+	TramaControl t;
 	//Enviar llamada de seleccion
-	enviarLlamada(PuertoCOM, 'R');
+	//enviarLlamada(PuertoCOM, 'R');
+	enviarTramaControl(PuertoCOM, 'R', ENQ, '0');
 	//Espera de confirmacion
 	while (!seleccion)
-		seleccion = recibirConfirmacionSeleccion(PuertoCOM, campo, '0');
+		seleccion = recibirConfirmacionSeleccion(PuertoCOM, campo, '0', t);
 
 }
 
-void enviarLlamada(HANDLE PuertoCOM, unsigned char direccion) {
-	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-	EnviarCaracter(PuertoCOM, direccion); //Direccion=(’R’ indica seleccion )
-	EnviarCaracter(PuertoCOM, ENQ); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-	EnviarCaracter(PuertoCOM, '0'); //Numero de Trama = (En principio fijo a ‘0’)
-	printf("\n[ENVIADA] TRAMA ENQ - %c\n", '0');
-}
+//void enviarLlamada(HANDLE PuertoCOM, unsigned char direccion) {
+//	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
+//	EnviarCaracter(PuertoCOM, direccion); //Direccion=(’R’ indica seleccion )
+//	EnviarCaracter(PuertoCOM, ENQ); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
+//	EnviarCaracter(PuertoCOM, '0'); //Numero de Trama = (En principio fijo a ‘0’)
+//	printf("\n[ENVIADA] TRAMA ENQ - %c\n", '0');
+//}
 
-void enviarConfirmacion(HANDLE PuertoCOM, unsigned char direccion,
-		unsigned char num) {
-	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-	EnviarCaracter(PuertoCOM, direccion); //Direccion=(En principio fijo a ’T’)
-	EnviarCaracter(PuertoCOM, ACK); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
-	printf("\n[ENVIADA] TRAMA ACK - %c\n", num);
-}
+//void enviarConfirmacion(HANDLE PuertoCOM, unsigned char direccion,
+//		unsigned char num) {
+//	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
+//	EnviarCaracter(PuertoCOM, direccion); //Direccion=(En principio fijo a ’T’)
+//	EnviarCaracter(PuertoCOM, ACK); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
+//	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
+//	printf("\n[ENVIADA] TRAMA ACK - %c\n", num);
+//}
 
 bool recibirConfirmacionSeleccion(HANDLE PuertoCOM, int &campo,
-		unsigned char num) {
+		unsigned char num, TramaControl &t) {
 	char car = 0;
 	car = RecibirCaracter(PuertoCOM);
 	bool ack = false;
@@ -338,24 +334,28 @@ bool recibirConfirmacionSeleccion(HANDLE PuertoCOM, int &campo,
 	if (car) {
 		switch (campo) {
 		case 1:
-			if (car == SYN)
+			if (car == SYN) {
 				campo++;
-
+				t.S = car;
+			}
 			break;
 		case 2:
-			if (car == 'R')
+			if (car == 'R') {
 				campo++;
-
+				t.D = car;
+			}
 			break;
 		case 3:
-			if (car == ACK)
+			if (car == ACK) {
 				campo++;
-
+				t.C = car;
+			}
 			break;
 		case 4:
 			if (car == num) {
 				ack = true;
-				printf("\n[RECIBIDA] TRAMA ACK - %c\n", num);
+				t.NT = car;
+				mostrarTramaControl(t, false);
 			}
 			campo = 1;
 
@@ -502,20 +502,21 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 
 }
 
-void enviarEOT(HANDLE PuertoCOM, unsigned char direccion, unsigned char num) {
-	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-	EnviarCaracter(PuertoCOM, direccion); //Direccion=(En principio fijo a ’T’ o 'R')
-	EnviarCaracter(PuertoCOM, EOT); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
-	printf("\n[ENVIADA] TRAMA EOT - %c\n", num);
-
-}
+//void enviarEOT(HANDLE PuertoCOM, unsigned char direccion, unsigned char num) {
+//	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
+//	EnviarCaracter(PuertoCOM, direccion); //Direccion=(En principio fijo a ’T’ o 'R')
+//	EnviarCaracter(PuertoCOM, EOT); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
+//	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
+//	printf("\n[ENVIADA] TRAMA EOT - %c\n", num);
+//
+//}
 
 void sondeo(HANDLE PuertoCOM) {
 	bool sondeo = false;
 	int campo = 1;
 	//Enviar llamada de sondeo
-	enviarLlamada(PuertoCOM, 'T');
+	//enviarLlamada(PuertoCOM, 'T');
+	enviarTramaControl(PuertoCOM, 'T', ENQ, '0');
 	//Espera de confirmacion
 	while (!sondeo)
 		sondeo = recibirConfirmacionSondeo(PuertoCOM, campo, '0');
@@ -562,9 +563,10 @@ bool recibirConfirmacionSondeo(HANDLE PuertoCOM, int& campo,
 void liberacionSeleccion(HANDLE PuertoCOM) {
 	bool liberacion = false;
 	int campo = 1;
-	enviarEOT(PuertoCOM, 'R', '0');
+	TramaControl t;
+	enviarTramaControl(PuertoCOM, 'R', EOT, '0');
 	while (!liberacion)
-		liberacion = recibirConfirmacionSeleccion(PuertoCOM, campo, '0');
+		liberacion = recibirConfirmacionSeleccion(PuertoCOM, campo, '0', t);
 
 	//printf("\n Se ha confirmado liberacion\n");
 }
@@ -577,9 +579,9 @@ void solicitarCierreSondeo(HANDLE PuertoCOM) {
 
 	while (!cierre) {
 		if (intento % 2 == 0)
-			enviarEOT(PuertoCOM, 'T', '0');
+			enviarTramaControl(PuertoCOM, 'T', EOT, '0');
 		else
-			enviarEOT(PuertoCOM, 'T', '1');
+			enviarTramaControl(PuertoCOM, 'T', EOT, '1');
 
 		while (!recibido) {
 			if (intento % 2 == 0) {
@@ -635,13 +637,9 @@ bool recibirCierreSondeo(HANDLE PuertoCOM, int& campo, unsigned char num,
 			break;
 		case 4:
 			if (car == num) {
+				t.NT = car;
 
-				if (t.C == ACK) {
-					printf("\n[RECIBIDA] TRAMA ACK - %c\n", num);
-				} else {
-					printf("\n[RECIBIDA] TRAMA NACK - %c\n", num);
-
-				}
+				mostrarTramaControl(t, false);
 
 				recibido = true;
 			}
@@ -671,11 +669,11 @@ void responderSolicitudCierre(HANDLE PuertoCOM, unsigned char num) {
 		switch (tecla) {
 		case '1':
 			printf("ACEPTADO\n");
-			enviarConfirmacion(PuertoCOM, 'T', num);
+			enviarTramaControl(PuertoCOM, 'T', ACK, num);
 			break;
 		case '2':
 			printf("RECHAZADO\n");
-			enviarRechazo(PuertoCOM, 'T', num);
+			enviarTramaControl(PuertoCOM, 'T', NACK, num);
 			break;
 		default:
 			opcion = false;
@@ -701,13 +699,13 @@ void reenviarTramaDatos(HANDLE PuertoCOM, TramaDatos td) {
 
 }
 
-void enviarRechazo(HANDLE PuertoCOM, unsigned char dir, unsigned char num) {
-	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-	EnviarCaracter(PuertoCOM, dir); //Direccion=(En principio fijo a ’T’)
-	EnviarCaracter(PuertoCOM, NACK); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
-	printf("\n[ENVIADA] TRAMA NACK - %c\n", num);
-}
+//void enviarRechazo(HANDLE PuertoCOM, unsigned char dir, unsigned char num) {
+//	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
+//	EnviarCaracter(PuertoCOM, dir); //Direccion=(En principio fijo a ’T’)
+//	EnviarCaracter(PuertoCOM, NACK); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
+//	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
+//	printf("\n[ENVIADA] TRAMA NACK - %c\n", num);
+//}
 
 bool recibirConfirmacionError(HANDLE PuertoCOM, int& campo, unsigned char dir,
 		unsigned char num, TramaControl& t) {
@@ -743,13 +741,9 @@ bool recibirConfirmacionError(HANDLE PuertoCOM, int& campo, unsigned char dir,
 			break;
 		case 4:
 			if (car == num) {
+				t.NT = car;
 
-				if (t.C == ACK) {
-					printf("\n[RECIBIDA] TRAMA ACK - %c\n", num);
-				} else {
-					printf("\n[RECIBIDA] TRAMA NACK - %c\n", num);
-
-				}
+				mostrarTramaControl(t, false);
 
 				recibido = true;
 			}

@@ -7,22 +7,28 @@
 
 #include "TramaControl.h"
 
-void mostrarTramaControl(TramaControl t) {
+void mostrarTramaControl(TramaControl t, bool enviada) {
 	unsigned char control = t.C;
+	char* envioRecivo;
+
+	if (enviada)
+		envioRecivo = "ENVIADA";
+	else
+		envioRecivo = "RECIBIDA";
 
 	switch (control) {
 
 	case ENQ:
-		printf("\n[RECIBIDA] TRAMA ENQ - %c\n", t.NT);
+		printf("\n[%s] [%c] [ ENQ ] [%c]\n", envioRecivo, t.D, t.NT);
 		break;
 	case EOT:
-		printf("\n[RECIBIDA] TRAMA EOT - %c\n", t.NT);
+		printf("\n[%s] [%c] [ EOT ] [%c]\n", envioRecivo, t.D, t.NT);
 		break;
 	case ACK:
-		printf("\n[RECIBIDA] TRAMA ACK - %c\n", t.NT);
+		printf("\n[%s] [%c] [ ACK ] [%c]\n", envioRecivo, t.D, t.NT);
 		break;
 	case NACK:
-		printf("\n[RECIBIDA] TRAMA NACK - %c\n", t.NT);
+		printf("\n[%s] [%c] [ NACK ] [%c]\n", envioRecivo, t.D, t.NT);
 		break;
 	default:
 		printf("Trama de control desconocida\n");
@@ -50,19 +56,19 @@ void seleccionarTramaControl(HANDLE PuertoCOM) {
 
 		switch (tecla) {
 		case '1':
-			enviarTramaControl(PuertoCOM, ENQ);
+			enviarTramaControl(PuertoCOM, 'T', ENQ, '0');
 			//opcionIncorrecta = false;
 			break;
 		case '2':
-			enviarTramaControl(PuertoCOM, EOT);
+			enviarTramaControl(PuertoCOM, 'T', EOT, '0');
 			//opcionIncorrecta = false;
 			break;
 		case '3':
-			enviarTramaControl(PuertoCOM, ACK);
+			enviarTramaControl(PuertoCOM, 'T', ACK, '0');
 			//opcionIncorrecta = false;
 			break;
 		case '4':
-			enviarTramaControl(PuertoCOM, NACK);
+			enviarTramaControl(PuertoCOM, 'T', NACK, '0');
 			//opcionIncorrecta = false;
 			break;
 		default:
@@ -74,11 +80,19 @@ void seleccionarTramaControl(HANDLE PuertoCOM) {
 	}
 }
 
-void enviarTramaControl(HANDLE PuertoCOM, unsigned char control) {
+void enviarTramaControl(HANDLE PuertoCOM, unsigned char dir,
+		unsigned char control, unsigned char num) {
+	TramaControl t;
+	t.S = SYN;
+	t.D = dir;
+	t.C = control;
+	t.NT = num;
 
 	EnviarCaracter(PuertoCOM, SYN); //Sincronismo = SYN =22
-	EnviarCaracter(PuertoCOM, 'T'); //Direccion=(En principio fijo a ’T’)
+	EnviarCaracter(PuertoCOM, dir); //Direccion=(En principio fijo a ’T’)
 	EnviarCaracter(PuertoCOM, control); //Control = (05 (ENQ), 04 (EOT), 06 (ACK), 21 (NACK))
-	EnviarCaracter(PuertoCOM, '0'); //Numero de Trama = (En principio fijo a ‘0’)
+	EnviarCaracter(PuertoCOM, num); //Numero de Trama = (En principio fijo a ‘0’)
+
+	mostrarTramaControl(t, true);
 
 }
