@@ -61,7 +61,7 @@ void enviarFichero(HANDLE PuertoCOM) {
 		EnviarCaracter(PuertoCOM, '#');
 
 		flujoFicheroLectura.close();
-		printf("\n[ENVIADO] FICHERO\n");
+		printf("\n[ENVIADO FICHERO]\n");
 	} else
 		printf("\n[ERROR] IMPOSIBLE ABRIR EL FICHERO...\n");
 
@@ -121,10 +121,13 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 					numCampo = 1;
 					mostrarTramaControl(t, false);
 
-					if (t.D == 'R')
+					if (t.D == 'R') {
 						enviarTramaControl(PuertoCOM, 'R', ACK, '0');
-					else if (t.D == 'T' && esclavo) {
+						printf("\n");
+
+					} else if (t.D == 'T' && esclavo) {
 						enviarTramaControl(PuertoCOM, 'T', ACK, '0');
+						printf("\n");
 						//Confirmacion de sondeo
 						enviarFicheroME(PuertoCOM, 'T');
 						solicitarCierreSondeo(PuertoCOM);
@@ -183,38 +186,33 @@ void recepcion(HANDLE PuertoCOM, int &numCampo, int &numDato, TramaControl &t,
 					if (td.BCE == calcularBCE(td.Datos, td.L)) { //Si va bien...
 						flujoFichero.write(td.Datos, td.L);
 						if (esclavo) {
-							if (td.N == '0') {
-								printf("\n[RECIBIDA] TRAMA DE DATOS - 0\n");
-							} else {
-								printf("\n[RECIBIDA] TRAMA DE DATOS - 1\n");
-							}
+							//Mostramos la trama de datos recibida
+							mostrarTramaDatos(td, false);
 							enviarTramaControl(PuertoCOM, 'R', ACK, td.N);
 
 						} else if (maestro) {
-
-							if (td.N == '0') {
-								printf("\n[RECIBIDA] TRAMA DE DATOS - 0\n");
-							} else {
-								printf("\n[RECIBIDA] TRAMA DE DATOS - 1\n");
-							}
+							//Mostramos la trama de datos recibida
+							mostrarTramaDatos(td, false);
 							enviarTramaControl(PuertoCOM, 'T', ACK, td.N);
-
 						}
+						printf("\n");
 
 					} else {
-						printf("\n[ERROR] BCE INCORRECTO...\n");
+						printf("*** ATENCION BCE INCORRECTO ***\n");
 //TODO: Mostrar trama datos aun siendo incorrecta...
+						//Mostramos la trama de datos recibida
+						mostrarTramaDatos(td, false);
 						if (esclavo) {
 							enviarTramaControl(PuertoCOM, 'R', NACK, td.N);
 						} else if (maestro) {
 							enviarTramaControl(PuertoCOM, 'T', NACK, td.N);
 						}
-
+						printf("\n");
 					}
 				} else
 					printf("\n[ERROR] IMPOSIBLE ABRIR EL FICHERO...\n");
 			} else
-				mostrarTramaDatos(td);
+				mostrarDatos(td);
 
 			break;
 		default:
@@ -276,7 +274,7 @@ void seleccionMaestro(HANDLE PuertoCOM) {
 
 		switch (tecla) {
 		case '1':
-			printf("SELECCION\n");
+			printf("SELECCION\n\n");
 			seleccion(PuertoCOM); //Establecimiento
 			enviarFicheroME(PuertoCOM, 'R'); //Tranferencia
 			liberacionSeleccion(PuertoCOM); //Liberacion
@@ -300,12 +298,12 @@ void seleccion(HANDLE PuertoCOM) {
 	int campo = 1;
 	TramaControl t;
 	//Enviar llamada de seleccion
-	//enviarLlamada(PuertoCOM, 'R');
 	enviarTramaControl(PuertoCOM, 'R', ENQ, '0');
 	//Espera de confirmacion
 	while (!seleccion)
 		seleccion = recibirConfirmacionSeleccion(PuertoCOM, campo, '0', t);
 
+	printf("\n");
 }
 
 bool recibirConfirmacionSeleccion(HANDLE PuertoCOM, int &campo,
@@ -406,10 +404,7 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 			td.BCE = calcularBCE(datos, c);
 			EnviarCaracter(PuertoCOM, calcularBCE(datos, c)); //Calculo y envio del BCE
 
-			if (trama % 2 == 0)
-				printf("\n[ENVIADA] TRAMA DE DATOS - 0\n");
-			else
-				printf("\n[ENVIADA] TRAMA DE DATOS - 1\n");
+			mostrarTramaDatos(td, true);
 
 			if (direccion == 'R') {
 
@@ -456,6 +451,7 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 				ack = false;
 			}
 
+			printf("\n");
 			tramaRecibida = false;
 			trama++;
 
@@ -468,7 +464,7 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 				if (tecla == FN) { //Comprobamos si es una tecla de Función
 					tecla = getch();
 					if (tecla == F5) {
-						printf("\n*** INTRODUCIDO ERROR EN TRAMA ***\n");
+						printf("*** INTRODUCIDO ERROR EN TRAMA ***\n");
 						error = true;
 					}
 				}
@@ -488,17 +484,18 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 void sondeo(HANDLE PuertoCOM) {
 	bool sondeo = false;
 	int campo = 1;
+	TramaControl t;
 	//Enviar llamada de sondeo
-	//enviarLlamada(PuertoCOM, 'T');
 	enviarTramaControl(PuertoCOM, 'T', ENQ, '0');
 	//Espera de confirmacion
 	while (!sondeo)
-		sondeo = recibirConfirmacionSondeo(PuertoCOM, campo, '0');
+		sondeo = recibirConfirmacionSondeo(PuertoCOM, campo, '0', t);
+
+	printf("\n");
 }
 
-bool recibirConfirmacionSondeo(HANDLE PuertoCOM, int& campo,
-		unsigned char num) {
-
+bool recibirConfirmacionSondeo(HANDLE PuertoCOM, int& campo, unsigned char num,
+		TramaControl &t) {
 	char car = 0;
 	car = RecibirCaracter(PuertoCOM);
 	bool ack = false;
@@ -506,24 +503,28 @@ bool recibirConfirmacionSondeo(HANDLE PuertoCOM, int& campo,
 	if (car) {
 		switch (campo) {
 		case 1:
-			if (car == SYN)
+			if (car == SYN) {
 				campo++;
-
+				t.S = car;
+			}
 			break;
 		case 2:
-			if (car == 'T')
+			if (car == 'T') {
 				campo++;
-
+				t.D = car;
+			}
 			break;
 		case 3:
-			if (car == ACK)
+			if (car == ACK) {
 				campo++;
-
+				t.C = car;
+			}
 			break;
 		case 4:
 			if (car == num) {
 				ack = true;
-				printf("\n[RECIBIDA] TRAMA ACK - %c\n", num);
+				t.NT = car;
+				mostrarTramaControl(t, false);
 			}
 			campo = 1;
 
@@ -669,7 +670,8 @@ void reenviarTramaDatos(HANDLE PuertoCOM, TramaDatos td) {
 	}
 	//td.BCE = calcularBCE(datos, c);
 	EnviarCaracter(PuertoCOM, td.BCE); //Calculo y envio del BCE
-	printf("\n[REENVIADA] TRAMA DE DATOS - %c\n", td.N);
+	//printf("\n[REENVIADA] TRAMA DE DATOS - %c\n", td.N);
+	mostrarTramaDatos(td, true);
 
 }
 

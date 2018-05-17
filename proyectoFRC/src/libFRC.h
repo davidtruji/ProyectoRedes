@@ -25,7 +25,7 @@ void seleccion(HANDLE PuertoCOM);
 void sondeo(HANDLE PuertoCOM);
 bool recibirConfirmacionSeleccion(HANDLE PuertoCOM, int &campo,
 		unsigned char num, TramaControl &t);
-bool recibirConfirmacionSondeo(HANDLE PuertoCOM, int &campo, unsigned char num);
+bool recibirConfirmacionSondeo(HANDLE PuertoCOM, int &campo, unsigned char num,TramaControl &t);
 void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion);
 void liberacionSeleccion(HANDLE PuertoCOM);
 void solicitarCierreSondeo(HANDLE PuertoCOM);

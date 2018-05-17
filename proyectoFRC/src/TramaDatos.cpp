@@ -70,7 +70,7 @@ unsigned char calcularBCE(char datos[], int l) {
 	return bce;
 }
 
-void mostrarTramaDatos(TramaDatos td) {
+void mostrarDatos(TramaDatos td) {
 	if (td.BCE == calcularBCE(td.Datos, td.L)) {
 		//printf("\nSe ha recibido una trama de datos\n");
 
@@ -84,3 +84,13 @@ void mostrarTramaDatos(TramaDatos td) {
 
 }
 
+void mostrarTramaDatos(TramaDatos td, bool enviada) {
+	unsigned char bceCalculado = calcularBCE(td.Datos, td.L);
+
+	if (enviada) {
+		printf("[ENVIADA] [%c] [ STX ] [%c] [%i]\n", td.D, td.N, td.BCE);
+	} else {
+		printf("[RECIBIDA] [%c] [ STX ] [%c] [%i] [%i]\n", td.D, td.N, td.BCE,
+				bceCalculado);
+	}
+}

@@ -137,8 +137,11 @@ int main() {
 	TramaControl t;
 	TramaDatos td;
 	bool esTramaControl = false, esFichero = false;
-
 	ofstream flujoFichero;
+
+	printf(
+			"\nF1 - ENVIO DE TRAMA DE DATOS.\nF2 - ENVIO DE TRAMA DE CONTROL.\nF3 - ENVIO DE FICHERO.\nF4 - PROTOCOLO MAESTRO-ESCLAVO.\n *F5 - SIMULA ERROR EN PROTOCOLO MAESTRO-ESCLAVO.\n");
+
 // Lectura y escritura simultánea de caracteres:
 
 	while (car != ESC) {

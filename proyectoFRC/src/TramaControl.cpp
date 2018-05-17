@@ -19,16 +19,16 @@ void mostrarTramaControl(TramaControl t, bool enviada) {
 	switch (control) {
 
 	case ENQ:
-		printf("\n[%s] [%c] [ ENQ ] [%c]\n", envioRecivo, t.D, t.NT);
+		printf("[%s] [%c] [ ENQ ] [%c]\n", envioRecivo, t.D, t.NT);
 		break;
 	case EOT:
-		printf("\n[%s] [%c] [ EOT ] [%c]\n", envioRecivo, t.D, t.NT);
+		printf("[%s] [%c] [ EOT ] [%c]\n", envioRecivo, t.D, t.NT);
 		break;
 	case ACK:
-		printf("\n[%s] [%c] [ ACK ] [%c]\n", envioRecivo, t.D, t.NT);
+		printf("[%s] [%c] [ ACK ] [%c]\n", envioRecivo, t.D, t.NT);
 		break;
 	case NACK:
-		printf("\n[%s] [%c] [ NACK ] [%c]\n", envioRecivo, t.D, t.NT);
+		printf("[%s] [%c] [ NACK ] [%c]\n", envioRecivo, t.D, t.NT);
 		break;
 	default:
 		printf("Trama de control desconocida\n");
