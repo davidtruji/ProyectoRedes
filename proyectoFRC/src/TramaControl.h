@@ -28,8 +28,19 @@ struct TramaControl {
 	unsigned char NT; //Numero de Trama = (En principio fijo a ‘0’)
 };
 
+/**
+ * Muestra una trama de control introducida por parametro, true(ENVIADA) o false(RECIBIDA)
+ */
 void mostrarTramaControl(TramaControl t, bool enviada);
+
+/**
+ * Ddespliega un menu para elegir el tipo de trama de control a enviar
+ */
 void seleccionarTramaControl(HANDLE PuertoCOM);
+
+/**
+ * Envia una trama de control con los parametros introducidos
+ */
 void enviarTramaControl(HANDLE PuertoCOM, unsigned char dir,
 		unsigned char control, unsigned char num);
 

@@ -28,6 +28,10 @@ HANDLE PuertoCOM;
 
 const int MAX = 600;
 
+
+/**
+ * Muestra el menu para elegir el puerto en serie y abre el elegido
+ */
 void elegirPuerto() {
 
 	// Parámetros necesarios al llamar a AbrirPuerto:
@@ -76,6 +80,9 @@ void elegirPuerto() {
 
 }
 
+/**
+ * Metodo que ejecuta el retroceso
+ */
 void retroceso(int &i) {
 	if (i > 0) {
 		i--;
@@ -87,6 +94,9 @@ void retroceso(int &i) {
 
 }
 
+/**
+ * Metodo que ejecuta el salto de linea
+ */
 void salto(int &i, char vector[]) {
 	if (i < 600) {
 		vector[i] = '\n';
@@ -96,6 +106,10 @@ void salto(int &i, char vector[]) {
 
 }
 
+/**
+ * Metodo que ejecuta las funciones del programa dependiendo de la tecla presionada
+ * F1(Envia una trama de datos), F2(Envia una trama de control), F3(Envia un fichero), F4(Inicia el Protocolo Maesto/Esclavo)
+ */
 void envio(char vector[], int &i) {
 	char car;
 
@@ -105,10 +119,8 @@ void envio(char vector[], int &i) {
 		switch (car) {
 
 		case F1:
-
 			enviarTramaDatos(PuertoCOM, vector, i);
 			i = 0;
-
 			break;
 		case F2:
 			seleccionarTramaControl(PuertoCOM);
@@ -117,7 +129,6 @@ void envio(char vector[], int &i) {
 			enviarFichero(PuertoCOM);
 			break;
 		case F4:
-
 			seleccionMaestroEsclavo(PuertoCOM);
 			break;
 

@@ -406,6 +406,8 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 
 			mostrarTramaDatos(td, true);
 
+
+			//ESPERA DE CONFIRMACION DE RECEPCION
 			if (direccion == 'R') {
 
 				while (!ack) {
@@ -455,6 +457,7 @@ void enviarFicheroME(HANDLE PuertoCOM, unsigned char direccion) {
 			tramaRecibida = false;
 			trama++;
 
+			//SIMULACION DE ERROR EN TRAMA Y TECLA ESC
 			if (kbhit()) {
 				tecla = getch();
 				if (tecla == 27) {
