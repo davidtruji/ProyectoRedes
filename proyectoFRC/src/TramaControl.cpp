@@ -12,9 +12,9 @@ void mostrarTramaControl(TramaControl t, bool enviada) {
 	char* envioRecivo;
 
 	if (enviada)
-		envioRecivo = "ENVIADA";
+		envioRecivo = "E";
 	else
-		envioRecivo = "RECIBIDA";
+		envioRecivo = "R";
 
 	switch (control) {
 

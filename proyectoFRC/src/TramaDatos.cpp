@@ -88,9 +88,9 @@ void mostrarTramaDatos(TramaDatos td, bool enviada) {
 	unsigned char bceCalculado = calcularBCE(td.Datos, td.L);
 
 	if (enviada) {
-		printf("[ENVIADA] [%c] [ STX ] [%c] [%i]\n", td.D, td.N, td.BCE);
+		printf("[E] [%c] [ STX ] [%c] [%i]\n", td.D, td.N, td.BCE);
 	} else {
-		printf("[RECIBIDA] [%c] [ STX ] [%c] [%i] [%i]\n", td.D, td.N, td.BCE,
+		printf("[R] [%c] [ STX ] [%c] [%i] [%i]\n", td.D, td.N, td.BCE,
 				bceCalculado);
 	}
 }
